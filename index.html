@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Classement des concerts</title>
+  <title>Classement des Groupes</title>
   <style>
     :root {
       --bg-color: #121212;
@@ -109,9 +109,9 @@
     <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importJSON(event)">
   </div>
 
-  <h1>Classement des concerts</h1>
+  <h1>Classement des Groupes</h1>
   <div id="controls">
-    <button onclick="addGroup()">Ajouter un concert</button>
+    <button onclick="addGroup()">Ajouter un groupe</button>
     <button onclick="saveAndSort()">Valider</button>
   </div>
 
@@ -126,7 +126,7 @@
 
       const nameInput = document.createElement('input');
       nameInput.type = 'text';
-      nameInput.placeholder = 'Nom du concert';
+      nameInput.placeholder = 'Nom du groupe';
       nameInput.value = name;
 
       const rankInput = document.createElement('input');
@@ -172,6 +172,7 @@
     function loadGroups() {
       const data = JSON.parse(localStorage.getItem('groupData')) || [];
       data.forEach(group => addGroup(group.name, group.rank));
+      sortGroups();
     }
 
     function exportJSON() {
@@ -198,6 +199,7 @@
           localStorage.setItem('groupData', JSON.stringify(data));
           document.getElementById('groupContainer').innerHTML = '';
           data.forEach(group => addGroup(group.name, group.rank));
+          sortGroups();
         } catch (err) {
           alert('Fichier invalide.');
         }
